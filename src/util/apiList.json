@@ -1,0 +1,8 @@
+{
+  "auth": "/api/auth",
+  "test": "/api/test",
+  "comment": "/api/comment",
+  "post": "/api/post",
+  "statistic": "/api/statistic",
+  "user": "/api/user"
+}
