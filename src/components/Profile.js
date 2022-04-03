@@ -1,18 +1,14 @@
 import React from "react";
 import AuthService from "../services/auth.service";
 
-const currentUser = AuthService.getCurrentUser();
-
 function AdminData(props) {
-    const isNeed = props.isNeeded;
-
-    if (isNeed)
+    if (props.isNeeded)
         return (
             <div>
                 <strong>Authorities:</strong>
                 <ul>
-                    {currentUser.roles &&
-                    currentUser.roles.map((role, index) =>
+                    {props.user.roles &&
+                    props.user.roles.map((role, index) =>
                         <li key={index}>
                             {role}
                         </li>)}
@@ -25,7 +21,7 @@ function AdminData(props) {
 }
 
 const Profile = () => {
-
+  const currentUser = AuthService.getCurrentUser();
   return (
     <div className="container">
       <header className="jumbotron">
@@ -44,7 +40,8 @@ const Profile = () => {
         <p>
             <strong>About:</strong> {currentUser.about === undefined ? 'no data' : currentUser.about}
         </p>
-        <AdminData isNeeded={currentUser.roles.some(role =>["system","user_data_admin_viewer"].includes(role))}/>
+        <AdminData isNeeded={currentUser.roles.some(role =>["system","user_data_admin_viewer"].includes(role))}
+                   user={currentUser}/>
     </div>
   );
 };
