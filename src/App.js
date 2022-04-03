@@ -8,6 +8,7 @@ import AuthService from "./services/auth.service";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import About from "./components/About";
+import NotFound from "./components/NotFound";
 import Profile from "./components/Profile";
 import BoardNotes from "./components/BoardNotes";
 import BoardFilter from "./components/BoardFilter";
@@ -110,15 +111,16 @@ const App = () => {
 
       <div className="container mt-3">
         <Routes>
-          <Route path="/" element={<About/>} />
-          <Route path="/note" element={<BoardNotes/>} />
-          <Route path="/filter" element={<BoardFilter/>} />
-          <Route path="/about" element={<About/>} />
+            <Route path="/" element={<About/>} />
+            <Route path="/note" element={<BoardNotes/>} />
+            <Route path="/filter" element={<BoardFilter/>} />
+            <Route path="/about" element={<About/>} />
 
-          <Route path="/login" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path="/profile" element={<Profile/>} />
+            <Route path="/login" element={<Login/>} />
+            <Route path="/register" element={<Register/>} />
+            <Route path="/profile" element={<Profile/>} />
 
+            <Route path="/*" element={<NotFound/>} />
         </Routes>
       </div>
 
