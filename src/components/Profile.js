@@ -32,10 +32,10 @@ const Profile = () => {
         <p>
             <strong>Id:</strong> {currentUser.id}
         </p>
-        <p>
-            {/*<strong>Token:</strong> {currentUser.accessToken}*/}
-            <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}
-            {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+        <p className="text-break">
+            <strong>Token:</strong> {currentUser.accessToken}
+            {/*<strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}*/}
+            {/*{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}*/}
         </p>
         <p>
             <strong>About:</strong> {currentUser.about === undefined ? 'no data' : currentUser.about}
