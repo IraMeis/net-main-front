@@ -5,15 +5,16 @@ import "./App.css";
 
 import AuthService from "./services/auth.service";
 
-import Login from "./components/Login";
-import Register from "./components/Register";
-import About from "./components/About";
+import Login from "./components/navbar/userEssent/Login";
+import Register from "./components/navbar/userEssent/Register";
+import About from "./components/navbar/main/About";
 import NotFound from "./components/NotFound";
-import Profile from "./components/Profile";
-import BoardNotes from "./components/BoardNotes";
-import BoardFilter from "./components/BoardFilter";
+import Profile from "./components/navbar/userEssent/Profile";
+import Notes from "./components/navbar/main/notes/Notes";
+import Filters from "./components/navbar/main/filters/Filters";
 
 import EventBus from "./common/EventBus";
+import FullPostComment from "./components/navbar/main/notes/FullPostComment";
 
 const App = () => {
   const [showNotes, setShowNotes] = useState(false);
@@ -87,7 +88,7 @@ const App = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <a href="/login" className="nav-link" onClick={logOut}>
+              <a href={"/login"} className="nav-link" onClick={logOut}>
                 LogOut
               </a>
             </li>
@@ -112,8 +113,9 @@ const App = () => {
       <div className="container mt-3">
         <Routes>
             <Route path="/" element={<About/>} />
-            <Route path="/note" element={<BoardNotes/>} />
-            <Route path="/filter" element={<BoardFilter/>} />
+            <Route path="/note" element={<Notes/>} />
+            <Route path="/note/:id" element={<FullPostComment/>} />
+            <Route path="/filter" element={<Filters/>} />
             <Route path="/about" element={<About/>} />
 
             <Route path="/login" element={<Login/>} />

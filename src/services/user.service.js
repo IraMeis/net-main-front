@@ -1,6 +1,6 @@
 import axios from "axios";
 import getControllerPath from "../util/GetControllerPath.js";
-import authHeader from "./auth-header";
+//import authHeader from "./auth-header";
 
 const API_URL = getControllerPath("test");
 

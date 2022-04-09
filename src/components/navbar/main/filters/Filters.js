@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import UserService from "../services/user.service";
-import EventBus from "../common/EventBus";
+import UserService from "../../../../services/user.service";
+import EventBus from "../../../../common/EventBus";
 
-const BoardFilter = () => {
+const Filters = () => {
     const [content, setContent] = useState("");
 
     useEffect(() => {
@@ -37,4 +37,4 @@ const BoardFilter = () => {
     );
 };
 
-export default BoardFilter;
+export default Filters;
