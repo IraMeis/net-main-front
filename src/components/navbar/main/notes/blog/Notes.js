@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-import UserService from "../../../../services/user.service";
-import EventBus from "../../../../common/EventBus";
+import UserService from "../../../../../services/user.service";
+import EventBus from "../../../../../common/EventBus";
 import BlogMain from "./BlogMain";
 import BlogHead from "./BlogHead";
+import Separator from "../../Separator";
 
 const Notes = () => {
   // const [content, setContent] = useState("");
@@ -31,8 +32,9 @@ const Notes = () => {
   // }, []);
 
   return (
-    <div className="container">
+    <div className="container jumbotron">
       <BlogHead/>
+        <Separator.SeparatorNarrow/>
       <BlogMain/>
     </div>
   );

@@ -10,11 +10,11 @@ import Register from "./components/navbar/userEssent/Register";
 import About from "./components/navbar/main/About";
 import NotFound from "./components/NotFound";
 import Profile from "./components/navbar/userEssent/Profile";
-import Notes from "./components/navbar/main/notes/Notes";
+import Notes from "./components/navbar/main/notes/blog/Notes";
 import Filters from "./components/navbar/main/filters/Filters";
 
 import EventBus from "./common/EventBus";
-import FullPostComment from "./components/navbar/main/notes/FullPostComment";
+import FullPostComment from "./components/navbar/main/notes/postAndComment/FullPostComment";
 
 const App = () => {
   const [showNotes, setShowNotes] = useState(false);
@@ -115,6 +115,8 @@ const App = () => {
             <Route path="/" element={<About/>} />
             <Route path="/note" element={<Notes/>} />
             <Route path="/note/:id" element={<FullPostComment/>} />
+            <Route path="/note/edit/:id" element={<About/>} />
+            <Route path="/note/newPost" element={<About/>} />
             <Route path="/filter" element={<Filters/>} />
             <Route path="/about" element={<About/>} />
 

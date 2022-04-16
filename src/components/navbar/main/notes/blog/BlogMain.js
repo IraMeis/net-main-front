@@ -1,10 +1,11 @@
 import React from "react";
 import {Route, Routes, Link, Navigate} from "react-router-dom";
-import FullPostComment from "./FullPostComment";
-import About from "../About";
+import FullPostComment from "../postAndComment/FullPostComment";
+import About from "../../About";
+import PostUtil from "../post.util";
 //import AuthService from "../../../services/auth.service";
 
-let response = [
+const response = [
     {
         id:1,
         header: "test header ---",
@@ -30,30 +31,10 @@ let response = [
         createdTimestamp: "2017-01-26"
     }];
 
-function PostPattern(props){
-    return (
-        <article className="blog-post">
-            <h2 className="blog-post-title">{props.header}</h2>
-            <p className="blog-post-meta">{props.createdTimestamp}</p>
-            <hr/>
-            <p>{props.content}</p>
-            <hr/>
-            <nav className="navbar navbar-light bg-white">
-                <div className="navbar-nav">
-                    <Link to={`/note/${props.id}`} className="nav-link" >
-                        Комментарии
-                    </Link>
-                </div>
-            </nav>
-            <div className="p-4 p-md-5 mb-4"/>
-        </article>
-    );
-}
-
 function Mapper (props){
     return (
         <div className="container">
-            {props.response.map(PostPattern)}
+            {props.response.map(PostUtil.PostWithBar)}
         </div>
     );
 }
