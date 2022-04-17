@@ -32,11 +32,14 @@ const Notes = () => {
   // }, []);
 
   return (
-    <div className="container jumbotron">
-      <BlogHead/>
-        <Separator.Separator3/>
-      <BlogMain/>
-    </div>
+      <div>
+          <Separator.Separator1/>
+          <div className="jumbotron">
+              <BlogHead/>
+              <Separator.Separator2/>
+              <BlogMain/>
+          </div>
+      </div>
   );
 };
 

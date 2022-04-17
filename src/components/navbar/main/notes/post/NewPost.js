@@ -16,7 +16,7 @@ const NewPost = () => {
 
     return (
         <div className="container">
-            <Separator.Separator3/>
+            <Separator.Separator1/>
             {/*{id}*/}
             {PostUtil.PostForCreate()}
 

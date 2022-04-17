@@ -82,6 +82,29 @@ const PostAndBarNoComment = () => {
     );
 }
 
+const ButtonsPattern = () => {
+  return (
+      <div>
+          <button type="button" className="btn btn-outline-secondary float-left ">Отмена</button>
+          <button type="button" className="btn btn-outline-info float-right ">Готово</button>
+      </div>
+  );
+}
+
+const ScopesPattern = () => {
+  return (
+      <div className="form-group">
+          <label htmlFor="exampleFormControlSelect">Область видимости</label>
+          <select className="form-control w-25">
+              <option>{scopes.p1.visual}</option>
+              <option>{scopes.p2.visual}</option>
+              <option>{scopes.p3.visual}</option>
+              <option>{scopes.p4.visual}</option>
+          </select>
+      </div>
+  );
+}
+
 const UpdatablePost = () => {
     const data = useContext(PostParams);
 
@@ -98,35 +121,21 @@ const UpdatablePost = () => {
             <p/>
 
             <div className="form-group">
-                {/*<h5 className="text-center">Заголовок</h5>*/}
                 <input type="text"
                        value={header}
                        className="form-control form-control-lg"
                        onChange={onChangeHeader}/>
             </div>
+
             <div className="input-large">
-                {/*<h5 className="text-center">Текст</h5>*/}
                 <textarea className="md-textarea md-textarea-auto form-control" placeholder="Текст" rows="8">
-                    {data.content}</textarea>
+                    {data.content}
+                </textarea>
             </div>
 
-            <div className="form-group">
-                <label htmlFor="exampleFormControlSelect">Область видимости</label>
-                <select className="form-control w-25">
-                    <option>{scopes.p1.visual}</option>
-                    <option>{scopes.p2.visual}</option>
-                    <option>{scopes.p3.visual}</option>
-                    <option>{scopes.p4.visual}</option>
-                </select>
-            </div>
-
+            <ScopesPattern/>
             <Separator.Separator1/>
-
-            <div>
-                <button type="button" className="btn btn-outline-secondary float-left ">Отмена</button>
-                <button type="button" className="btn btn-outline-info float-right ">Готово</button>
-            </div>
-
+            <ButtonsPattern/>
         </div>
     );
 }
@@ -143,36 +152,21 @@ const CreatablePost = () => {
         <div className="jumbotron bg-light">
 
             <div className="form-group">
-                {/*<h5 className="text-center">Заголовок</h5>*/}
                 <input type="text"
                        value={header}
                        className="form-control form-control-lg"
                        placeholder="Заголовок"
                        onChange={onChangeHeader}/>
             </div>
+
             <div className="input-large">
-                {/*<h5 className="text-center">Текст</h5>*/}
                 <textarea className="md-textarea md-textarea-auto form-control" placeholder="Текст" rows="8">
                 </textarea>
             </div>
 
-            <div className="form-group">
-                <label htmlFor="exampleFormControlSelect">Область видимости</label>
-                <select className="form-control w-25">
-                    <option>{scopes.p1.visual}</option>
-                    <option>{scopes.p2.visual}</option>
-                    <option>{scopes.p3.visual}</option>
-                    <option>{scopes.p4.visual}</option>
-                </select>
-            </div>
-
+            <ScopesPattern/>
             <Separator.Separator1/>
-
-            <div>
-                <button type="button" className="btn btn-outline-secondary float-left ">Отмена</button>
-                <button type="button" className="btn btn-outline-info float-right ">Готово</button>
-            </div>
-
+            <ButtonsPattern/>
         </div>
     );
 }

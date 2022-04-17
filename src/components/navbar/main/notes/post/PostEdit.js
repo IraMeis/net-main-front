@@ -16,7 +16,7 @@ const PostEdit = () => {
 
     return (
         <div className="container">
-            {/*<Separator.SeparatorNarrow/>*/}
+            <Separator.Separator1/>
             {/*{id}*/}
             {[responsePost].map(PostUtil.PostForUpdate)}
             {/*<Separator.SeparatorNarrow/>*/}

@@ -5,7 +5,6 @@ import {Link} from "react-router-dom";
 const BlogHead = () => {
     return (
         <div className="p-4 p-md-5 mb-4 text-black rounded ">
-            {/*<div className="col-md-6 px-0">*/}
             <h1 className="display-4 fst-italic text-center">Some notes</h1>
             <p/>
             <nav className="navbar navbar-expand navbar-light justify-content-center">
@@ -15,7 +14,6 @@ const BlogHead = () => {
                 </Link>
                 </div>
             </nav>
-            {/*</div>*/}
         </div>
     );
 };

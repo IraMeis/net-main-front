@@ -52,12 +52,11 @@ const FullPostComment = () => {
 
     return (
         <div className="container">
-            <Separator.Separator3/>
+            <Separator.Separator1/>
             {/*{id}*/}
             {[responsePost].map(PostUtil.PostForPostComments)}
-            <Separator.Separator3/>
             {responseComments.map(CommentUtil.Comment)}
-            <Separator.Separator3/>
+            <Separator.Separator1/>
             <NewComment/>
             <Separator.Separator4/>
         </div>

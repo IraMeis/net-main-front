@@ -59,7 +59,6 @@ const UpdatableComment = () =>{
         <div className="jumbotron bg-light">
 
             <div className="input-large">
-                {/*<h5 className="text-center">Текст</h5>*/}
                 <textarea className="md-textarea md-textarea-auto form-control" placeholder="Текст" rows="4">
                     {data.content}
                 </textarea>
