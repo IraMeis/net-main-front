@@ -54,7 +54,7 @@ const FullPostComment = () => {
         <div className="container">
             <Separator.SeparatorNarrow/>
             {/*{id}*/}
-            {[responsePost].map(PostUtil.Post)}
+            {[responsePost].map(PostUtil.PostForPostComments)}
             <Separator.SeparatorNarrow/>
             {responseComments.map(Comment)}
             <Separator.SeparatorNarrow/>

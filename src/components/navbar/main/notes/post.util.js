@@ -7,17 +7,10 @@ const user = AuthService.getCurrentUser();
 
 const PostParams = createContext(null);
 
-const Bar = () =>{
+const BarNoComment = () =>{
     const data = useContext(PostParams);
     return (
         <nav className=" navbar navbar-expand navbar-light">
-            {/*<div className="navbar-nav">*/}
-
-                <div className="navbar-nav">
-                    <Link to={`/note/${data.id}`} className="nav-link" >
-                        Комментарии
-                    </Link>
-                </div>
                 <div className="navbar-nav ml-auto">
                     <Link to={`/note/edit/${data.id}`} className="nav-link" >
                         Редактировать
@@ -26,6 +19,28 @@ const Bar = () =>{
                         Удалить
                     </Link>
                 </div>
+        </nav>)
+}
+
+const BarLinkComment = () =>{
+    const data = useContext(PostParams);
+    return (
+        <nav className=" navbar navbar-expand navbar-light">
+            {/*<div className="navbar-nav">*/}
+
+            <div className="navbar-nav">
+                <Link to={`/note/${data.id}`} className="nav-link" >
+                    Комментарии
+                </Link>
+            </div>
+            <div className="navbar-nav ml-auto">
+                <Link to={`/note/edit/${data.id}`} className="nav-link" >
+                    Редактировать
+                </Link>
+                <Link to={`/note/edit/${data.id}`} className="nav-link" >
+                    Удалить
+                </Link>
+            </div>
             {/*{user.roles.some(role =>["system","post_modifier"].includes(role)) &&*/}
             {/*(<Link to={`/note/${props.id}`} className="nav-link" >*/}
             {/*    Редактировать*/}
@@ -36,7 +51,7 @@ const Bar = () =>{
         </nav>)
 }
 
-const PostAndBar = () => {
+const PostAndBarLinkComment = () => {
     const data = useContext(PostParams);
     return (
         <article className="blog-post">
@@ -45,12 +60,12 @@ const PostAndBar = () => {
                 <hr/>
                 <p>{data.content}</p>
                 <hr/>
-                <Bar/>
+                <BarLinkComment/>
         </article>
     );
 }
 
-const PostWithoutBar = () => {
+const PostAndBarNoComment = () => {
     const data = useContext(PostParams);
     return (
         <article className="blog-post">
@@ -60,31 +75,32 @@ const PostWithoutBar = () => {
                 <hr/>
                 <p>{data.content}</p>
                 <hr/>
+                <BarNoComment/>
             </div>
         </article>
     );
 }
 
-const PostWithBar = (props) => {
+const PostForBlog = (props) => {
     return (
         <PostParams.Provider value={props}>
-            <PostAndBar/>
+            <PostAndBarLinkComment/>
             <Separator.SeparatorWide/>
         </PostParams.Provider>
     );
 }
 
-const Post = (props) => {
+const PostForPostComments = (props) => {
     return (
         <PostParams.Provider value={props}>
-            <PostWithoutBar/>
+            <PostAndBarNoComment/>
         </PostParams.Provider>
     );
 }
 
 const PostUtil = {
-    Post,
-    PostWithBar
+    PostForPostComments,
+    PostForBlog
 }
 
 export default PostUtil;

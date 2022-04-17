@@ -34,7 +34,7 @@ const response = [
 function Mapper (props){
     return (
         <div className="container">
-            {props.response.map(PostUtil.PostWithBar)}
+            {props.response.map(PostUtil.PostForBlog)}
         </div>
     );
 }
