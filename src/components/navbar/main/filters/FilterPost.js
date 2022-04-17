@@ -1,4 +1,49 @@
 import SearchPattern from "./SearchPattern"
+import PostUtil from "../notes/post/post.util";
+import Separator from "../Separator";
+
+let response =[{
+    id:1,
+    uuid:"jyttdhjkl;",
+    header: "test header ---",
+    content: "test content would recommend using Date.now() (with compatibility shim). It's slightly better because it's shorter & doesn't create a new Date object. However, if you don't want a shim & maximum compatibility, you could use the \"old\" method to get the timestamp in milliseconds",
+    createdTimestamp: "2017-01-26",
+    modifiedTimestamp: "2017-01-26",
+    isDeleted:false,
+    scope:{value:2, label:"private"}
+    },
+    {
+        id:1,
+        uuid:"jyttdhjkl;",
+        header: "test header ---",
+        content: "test content would recommend using Date.now() (with compatibility shim). It's slightly better because it's shorter & doesn't create a new Date object. However, if you don't want a shim & maximum compatibility, you could use the \"old\" method to get the timestamp in milliseconds",
+        createdTimestamp: "2017-01-26",
+        modifiedTimestamp: "2017-01-26",
+        isDeleted:false,
+        scope:{value:2, label:"private"}
+    },
+    {
+        id:1,
+        uuid:"jyttdhjkl;",
+        header: "test header ---",
+        content: "test content would recommend using Date.now() (with compatibility shim). It's slightly better because it's shorter & doesn't create a new Date object. However, if you don't want a shim & maximum compatibility, you could use the \"old\" method to get the timestamp in milliseconds",
+        createdTimestamp: "2017-01-26",
+        modifiedTimestamp: "2017-01-26",
+        isDeleted:false,
+        scope:{value:2, label:"private"}
+    }]
+
+const ResponseMapper =() =>{
+    return (
+        <div>
+            <Separator.Separator4/>
+            <div className={"jumbotron bg-light"}>
+                <h4 className={"text-center"}>Search result</h4>
+                {response.map(PostUtil.PostForSearch)}
+            </div>
+        </div>
+    );
+}
 
 const FilterPost = () => {
 
@@ -22,6 +67,8 @@ const FilterPost = () => {
             <hr/>
 
             <SearchPattern.SearchButton/>
+
+            <ResponseMapper/>
         </div>
     );
 }

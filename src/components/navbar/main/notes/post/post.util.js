@@ -52,6 +52,20 @@ const BarLinkComment = () =>{
         </nav>)
 }
 
+const BarSearch = () =>{
+    const data = useContext(PostParams);
+    return (
+        <div>
+            <button type="button" className="btn btn-outline-info float-left ">Перейти к просмотру статьи</button>
+            <div>
+                <button type="button" className="btn btn-outline-secondary float-right">Редактировать</button>
+                <button type="button" className="btn btn-outline-dark float-right border-0" disabled> </button>
+                <button type="button" className="btn btn-outline-secondary float-right">Удалить</button>
+            </div>
+        </div>
+    )
+}
+
 const PostAndBarLinkComment = () => {
     const data = useContext(PostParams);
     return (
@@ -79,6 +93,31 @@ const PostAndBarNoComment = () => {
                 <BarNoComment/>
             </div>
         </article>
+    );
+}
+
+const PostSearch = () => {
+    const data = useContext(PostParams);
+    return (
+        <div>
+            <Separator.Separator4/>
+            <Separator.Separator2/>
+            <h5>Meta info:</h5>
+            <hr/>
+            <p> <strong>Id:</strong> {data.id}</p>
+            <p> <strong>UUID:</strong> {data.uuid}</p>
+            <p className="blog-post-meta"> <strong>Created at</strong> {data.createdTimestamp}</p>
+            <p className="blog-post-meta"> <strong>Last time modified at</strong> {data.modifiedTimestamp}</p>
+            <Separator.Separator1/>
+            <h5>Post-editable info:</h5>
+            <hr/>
+            <p> <strong>Is deleted:</strong> {data.isDeleted ? "yes": "no"}</p>
+            <p> <strong>Scope:</strong> {data.scope.value} ({data.scope.label})</p>
+            <p className="blog-post-title"> <strong>Title:</strong> {data.header}</p>
+            <p className="blog-post-meta"> <strong>Content:</strong> {data.content.substring(0, 200)}...</p>
+            <hr/>
+            <BarSearch/>
+        </div>
     );
 }
 
@@ -180,6 +219,14 @@ const PostForBlog = (props) => {
     );
 }
 
+const PostForSearch = (props) => {
+    return (
+        <PostParams.Provider value={props}>
+            <PostSearch/>
+        </PostParams.Provider>
+    );
+}
+
 const PostForPostComments = (props) => {
     return (
         <PostParams.Provider value={props}>
@@ -204,7 +251,8 @@ const PostUtil = {
     PostForPostComments,
     PostForBlog,
     PostForUpdate,
-    PostForCreate
+    PostForCreate,
+    PostForSearch
 }
 
 export default PostUtil;
