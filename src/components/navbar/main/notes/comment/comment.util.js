@@ -1,6 +1,7 @@
 import AuthService from "../../../../../services/auth.service";
-import {createContext, useContext} from "react";
+import React, {createContext, useContext, useState} from "react";
 import {Link} from "react-router-dom";
+import Separator from "../../Separator";
 
 const user = AuthService.getCurrentUser();
 
@@ -21,7 +22,7 @@ const CommentView = () => {
                 <nav className="navbar navbar-text navbar-light center-block">
                     <div className="navbar-nav">
                         <small>
-                            <Link to={`/note/comment/edit/${data.id}`} className="nav-link" >
+                            <Link to={`/note/comment/edit/${data.id}`} className="nav-link" props ={data}>
                                 Редактировать
                             </Link>
                             <Link to={`/#`} className="nav-link" >
@@ -51,6 +52,30 @@ const CommentView = () => {
     );
 }
 
+const UpdatableComment = () =>{
+    const data = useContext(CommentParams);
+
+    return (
+        <div className="jumbotron bg-light">
+
+            <div className="input-large">
+                {/*<h5 className="text-center">Текст</h5>*/}
+                <textarea className="md-textarea md-textarea-auto form-control" placeholder="Текст" rows="4">
+                    {data.content}
+                </textarea>
+            </div>
+
+            <Separator.Separator2/>
+
+            <div>
+                <button type="button" className="btn btn-outline-secondary float-left ">Отмена</button>
+                <button type="button" className="btn btn-outline-info float-right ">Готово</button>
+            </div>
+
+        </div>
+    );
+}
+
 const Comment = (props) => {
     return (
         <CommentParams.Provider value={props}>
@@ -59,4 +84,17 @@ const Comment = (props) => {
     );
 }
 
-export default Comment;
+const CommentForUpdate = (props) => {
+    return (
+        <CommentParams.Provider value={props}>
+            <UpdatableComment/>
+        </CommentParams.Provider>
+    );
+}
+
+const CommentUtil ={
+    Comment,
+    CommentForUpdate
+}
+
+export default CommentUtil;

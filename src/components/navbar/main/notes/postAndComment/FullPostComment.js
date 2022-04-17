@@ -4,7 +4,7 @@
 import PostUtil from "../post/post.util";
 import Separator from "../../Separator";
 import {useParams} from "react-router-dom";
-import Comment from "../comment/comment.util";
+import CommentUtil from "../comment/comment.util";
 import NewComment from "./NewComment";
 
 let responsePost =
@@ -56,7 +56,7 @@ const FullPostComment = () => {
             {/*{id}*/}
             {[responsePost].map(PostUtil.PostForPostComments)}
             <Separator.Separator3/>
-            {responseComments.map(Comment)}
+            {responseComments.map(CommentUtil.Comment)}
             <Separator.Separator3/>
             <NewComment/>
             <Separator.Separator4/>
