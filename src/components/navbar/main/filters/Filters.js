@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 
 import UserService from "../../../../services/user.service";
 import EventBus from "../../../../common/EventBus";
+import Separator from "../Separator";
+import FilterPost from "./FilterPost";
+import FilterUser from "./FilterUser";
+import StatisticUser from "./StatisticUser";
 
 const Filters = () => {
     const [content, setContent] = useState("");
@@ -30,9 +34,10 @@ const Filters = () => {
 
     return (
         <div className="container">
-            <header className="jumbotron">
-                <h3>{content}</h3>
-            </header>
+            <Separator.Separator1/>
+            <FilterPost/>
+            <FilterUser/>
+            <StatisticUser/>
         </div>
     );
 };

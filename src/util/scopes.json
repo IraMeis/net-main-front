@@ -1,0 +1,22 @@
+{
+  "p1": {
+    "name":"scope_private",
+    "code": 1,
+    "visual": "1 - private"
+  },
+  "p2": {
+    "name":"scope_trusted",
+    "code": 2,
+    "visual": "2 - trusted"
+  },
+  "p3": {
+    "name":"scope_viewers",
+    "code": 3,
+    "visual": "3 - viewers"
+  },
+  "p4": {
+    "name":"scope_public",
+    "code": 4,
+    "visual": "4 - public"
+  }
+}

@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 import AuthService from "../../../../../services/auth.service";
+import scopes from "../../../../../util/scopes.json"
 import Separator from "../../Separator";
 import React, {createContext, useContext, useState} from "react";
 
@@ -112,10 +113,10 @@ const UpdatablePost = () => {
             <div className="form-group">
                 <label htmlFor="exampleFormControlSelect">Область видимости</label>
                 <select className="form-control w-25">
-                    <option>1 - private</option>
-                    <option>2 - trusted</option>
-                    <option>3 - viewers</option>
-                    <option>4 - public</option>
+                    <option>{scopes.p1.visual}</option>
+                    <option>{scopes.p2.visual}</option>
+                    <option>{scopes.p3.visual}</option>
+                    <option>{scopes.p4.visual}</option>
                 </select>
             </div>
 
@@ -158,10 +159,10 @@ const CreatablePost = () => {
             <div className="form-group">
                 <label htmlFor="exampleFormControlSelect">Область видимости</label>
                 <select className="form-control w-25">
-                    <option>1 - private</option>
-                    <option>2 - trusted</option>
-                    <option>3 - viewers</option>
-                    <option>4 - public</option>
+                    <option>{scopes.p1.visual}</option>
+                    <option>{scopes.p2.visual}</option>
+                    <option>{scopes.p3.visual}</option>
+                    <option>{scopes.p4.visual}</option>
                 </select>
             </div>
 
