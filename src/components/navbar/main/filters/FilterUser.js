@@ -17,15 +17,15 @@ const FilterUser = () => {
             <SearchPattern.ScopeCheckBox/>
             <hr/>
 
-            <SearchPattern.CheckBox3Labeled label={"Search by isDeleted"}
+            <SearchPattern.Radio3Labeled label={"Search by isDeleted"} id={"2"}
                                             l1={"only in not deleted"} l2={"only in deleted"} l3={"no mater"}/>
             <hr/>
 
-            <SearchPattern.CheckBox3Labeled label={"Search by isUser"}
+            <SearchPattern.Radio3Labeled label={"Search by isUser"} id={"3"}
                                             l1={"only in user accounts"} l2={"only in not-user accounts"} l3={"no mater"}/>
             <hr/>
 
-            <SearchPattern.CheckBox1Labeled label={"Search in active at current time"}
+            <SearchPattern.CheckBox1Labeled label={"Search in active at current time"} id="4"
                                             l1={"yes"}/>
             <hr/>
 

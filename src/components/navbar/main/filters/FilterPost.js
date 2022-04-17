@@ -12,7 +12,7 @@ const FilterPost = () => {
             <hr/>
 
             <SearchPattern.TextSimple label="Search by text containing" ph="label"/>
-            <SearchPattern.CheckBox3 l1={"in header"} l2={"in main content"} l3={"in comments"}/>
+            <SearchPattern.CheckBox3 id="1" l1={"in header"} l2={"in main content"} l3={"in comments"}/>
             <hr/>
 
             <SearchPattern.TextSimple label="Search by commentators ids" ph="ex. 1,23,5"/>
