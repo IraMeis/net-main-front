@@ -40,14 +40,12 @@ const PostAndBar = () => {
     const data = useContext(PostParams);
     return (
         <article className="blog-post">
-            <div className="jumbotron bg-light">
                 <h2 className="blog-post-title">{data.header}</h2>
                 <p className="blog-post-meta">{data.createdTimestamp}</p>
                 <hr/>
                 <p>{data.content}</p>
                 <hr/>
                 <Bar/>
-            </div>
         </article>
     );
 }
@@ -71,7 +69,7 @@ const PostWithBar = (props) => {
     return (
         <PostParams.Provider value={props}>
             <PostAndBar/>
-            <Separator.SeparatorNarrow/>
+            <Separator.SeparatorWide/>
         </PostParams.Provider>
     );
 }
