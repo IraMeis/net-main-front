@@ -1,10 +1,10 @@
 //import React, { useState, useEffect } from "react";
 
 //import UserService from "../services/user.service";
-import PostUtil from "../post.util";
+import PostUtil from "../post/post.util";
 import Separator from "../../Separator";
 import {useParams} from "react-router-dom";
-import Comment from "../comment.util";
+import Comment from "../comment/comment.util";
 import NewComment from "./NewComment";
 
 let responsePost =
@@ -52,14 +52,14 @@ const FullPostComment = () => {
 
     return (
         <div className="container">
-            <Separator.SeparatorNarrow/>
+            <Separator.Separator3/>
             {/*{id}*/}
             {[responsePost].map(PostUtil.PostForPostComments)}
-            <Separator.SeparatorNarrow/>
+            <Separator.Separator3/>
             {responseComments.map(Comment)}
-            <Separator.SeparatorNarrow/>
+            <Separator.Separator3/>
             <NewComment/>
-            <Separator.SeparatorWide/>
+            <Separator.Separator4/>
         </div>
     );
 };

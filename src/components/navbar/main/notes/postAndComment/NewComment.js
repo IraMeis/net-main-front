@@ -6,7 +6,7 @@ const NewComment = () => {
 
     return (
         <div className="input-large">
-            <textarea className="form-control" placeholder="Текст комментария"/>
+            <textarea className="form-control" placeholder="Текст комментария" rows="4"/>
             <p/>
             <button type="button" className="btn btn-outline-info float-right">Комментировать</button>
         </div>

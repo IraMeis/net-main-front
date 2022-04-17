@@ -2,7 +2,7 @@ import React from "react";
 import {Route, Routes, Link, Navigate} from "react-router-dom";
 import FullPostComment from "../postAndComment/FullPostComment";
 import About from "../../About";
-import PostUtil from "../post.util";
+import PostUtil from "../post/post.util";
 //import AuthService from "../../../services/auth.service";
 
 const response = [

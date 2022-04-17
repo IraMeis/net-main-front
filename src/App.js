@@ -15,6 +15,9 @@ import Filters from "./components/navbar/main/filters/Filters";
 
 import EventBus from "./common/EventBus";
 import FullPostComment from "./components/navbar/main/notes/postAndComment/FullPostComment";
+import PostEdit from "./components/navbar/main/notes/post/PostEdit";
+import NewPost from "./components/navbar/main/notes/post/NewPost";
+import CommentEdit from "./components/navbar/main/notes/comment/CommentEdit";
 
 const App = () => {
   const [showNotes, setShowNotes] = useState(false);
@@ -113,10 +116,13 @@ const App = () => {
       <div className="container mt-3">
         <Routes>
             <Route path="/" element={<About/>} />
+
             <Route path="/note" element={<Notes/>} />
-            <Route path="/note/:id" element={<FullPostComment/>} />
-            <Route path="/note/edit/:id" element={<About/>} />
-            <Route path="/note/newPost" element={<About/>} />
+            <Route path="/note/post/:id" element={<FullPostComment/>} />
+            <Route path="/note/post/edit/:id" element={<PostEdit/>} />
+            <Route path="/note/post/new" element={<NewPost/>} />
+            <Route path="/note/comment/edit/:id" element={<CommentEdit/>}/>
+
             <Route path="/filter" element={<Filters/>} />
             <Route path="/about" element={<About/>} />
 

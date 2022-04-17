@@ -34,7 +34,7 @@ const Notes = () => {
   return (
     <div className="container jumbotron">
       <BlogHead/>
-        <Separator.SeparatorNarrow/>
+        <Separator.Separator3/>
       <BlogMain/>
     </div>
   );

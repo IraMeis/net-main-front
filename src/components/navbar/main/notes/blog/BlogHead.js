@@ -10,7 +10,7 @@ const BlogHead = () => {
             <p/>
             <nav className="navbar navbar-expand navbar-light justify-content-center">
                 <div className="navbar-nav ">
-                <Link to={`/note/newPost`} className="nav-link">
+                <Link to={`/note/post/new`} className="nav-link">
                    <em>Новый пост</em>
                 </Link>
                 </div>

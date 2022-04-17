@@ -1,4 +1,4 @@
-import AuthService from "../../../../services/auth.service";
+import AuthService from "../../../../../services/auth.service";
 import {createContext, useContext} from "react";
 import {Link} from "react-router-dom";
 
@@ -21,10 +21,10 @@ const CommentView = () => {
                 <nav className="navbar navbar-text navbar-light center-block">
                     <div className="navbar-nav">
                         <small>
-                            <Link to={`/note/${data.id}`} className="nav-link" >
+                            <Link to={`/note/comment/edit/${data.id}`} className="nav-link" >
                                 Редактировать
                             </Link>
-                            <Link to={`/note/edit/${data.id}`} className="nav-link" >
+                            <Link to={`/#`} className="nav-link" >
                                 Удалить
                             </Link>
                         </small>
