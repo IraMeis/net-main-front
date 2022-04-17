@@ -54,10 +54,10 @@ const ScopeCheckBox = () =>{
 
 const SearchButton = () =>{
     return (
-        <div>
-            <button type="button" className="btn btn-outline-dark float-right">Clear result</button>
-            <button type="button" className="btn btn-outline-dark float-right border-0" disabled> </button>
-            <button type="button" className="btn btn-outline-info float-right">Search</button>
+        <div className={"float-right"}>
+            <button type="button" className="btn btn-outline-dark">Clear result</button>
+            <button type="button" className="btn btn-outline-dark border-0" disabled> </button>
+            <button type="button" className="btn btn-outline-info">Search</button>
         </div>
     );
 }

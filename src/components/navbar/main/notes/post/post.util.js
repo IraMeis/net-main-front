@@ -57,10 +57,10 @@ const BarSearch = () =>{
     return (
         <div>
             <button type="button" className="btn btn-outline-info float-left ">Перейти к просмотру статьи</button>
-            <div>
-                <button type="button" className="btn btn-outline-secondary float-right">Редактировать</button>
-                <button type="button" className="btn btn-outline-dark float-right border-0" disabled> </button>
-                <button type="button" className="btn btn-outline-secondary float-right">Удалить</button>
+            <div className={"float-right"}>
+                <button type="button" className="btn btn-outline-secondary">Редактировать</button>
+                <button type="button" className="btn btn-outline-dark border-0" disabled> </button>
+                <button type="button" className="btn btn-outline-secondary">Удалить</button>
             </div>
         </div>
     )
