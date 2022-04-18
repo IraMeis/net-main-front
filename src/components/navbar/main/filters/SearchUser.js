@@ -8,7 +8,7 @@ const RoleMapper = (props) => {
           </li>
   ));
 }
-//roles:[{value:1, label:"system"},{value:2, label:"post_modifier"}]
+
 const BarSearchUser = () =>{
     return (
         <div className={"float-right"}>
@@ -23,6 +23,7 @@ const SearchUser = (props) => {
     return (
         <div>
             <Separator.Separator4/>
+            <Separator.Separator2/>
 
             <h5>Meta info:</h5>
             <hr/>
