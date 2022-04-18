@@ -35,19 +35,19 @@ const SearchUser = (props) => {
 
             <Separator.Separator1/>
 
-            <h5>Admin-editable info:</h5>
-            <hr/>
-            <p> <strong>Is deleted:</strong> {props.isDeleted ? "yes": "no"}</p>
-            <p> <strong>Is banned:</strong> {props.isTokenAllowed ? "yes": "no"}</p>
-            <p> <strong>Scope:</strong> {props.scope.value} ({props.scope.label})</p>
-            <p> <strong>Roles:</strong> <ul>{<RoleMapper roles={props.roles}/>}</ul> </p>
-
-            <Separator.Separator1/>
-
             <h5>User-editable info:</h5>
             <hr/>
             <p> <strong>Login:</strong> {props.login}</p>
             <p><strong>About:</strong> {props.about === null ? 'no data' : props.about}</p>
+
+            <Separator.Separator1/>
+
+            <h5>Admin-editable info:</h5>
+            <hr/>
+            <p> <strong>Is deleted:</strong> {props.isDeleted ? "yes": "no"}</p>
+            <p> <strong>Is banned:</strong> {props.isTokenAllowed ? "no" : "yes"}</p>
+            <p> <strong>Scope:</strong> {props.scope.value} ({props.scope.label})</p>
+            <p> <strong>Roles:</strong> <ul>{<RoleMapper roles={props.roles}/>}</ul> </p>
 
             <hr/>
             <BarSearchUser/>
