@@ -1,35 +1,7 @@
-import React from "react";
-import {Route, Routes, Link, Navigate} from "react-router-dom";
-import FullPostComment from "../postAndComment/FullPostComment";
-import About from "../../About";
+import React, {useEffect, useState} from "react";
 import PostUtil from "../post/post.util";
-//import AuthService from "../../../services/auth.service";
-
-const response = [
-    {
-        id:1,
-        header: "test header ---",
-        content: "test content would recommend using Date.now() (with compatibility shim). It's slightly better because it's shorter & doesn't create a new Date object. However, if you don't want a shim & maximum compatibility, you could use the \"old\" method to get the timestamp in milliseconds",
-        createdTimestamp: "2017-01-26"
-    },
-    {
-        id:12,
-        header: "test header ---",
-        content: "test content would recommend using Date.now() (with compatibility shim). It's slightly better because it's shorter & doesn't create a new Date object. However, if you don't want a shim & maximum compatibility, you could use the \"old\" method to get the timestamp in milliseconds",
-        createdTimestamp: "2017-01-26"
-    },
-    {
-        id:3,
-        header: "test header ---",
-        content: "test content would recommend using Date.now() (with compatibility shim). It's slightly better because it's shorter & doesn't create a new Date object. However, if you don't want a shim & maximum compatibility, you could use the \"old\" method to get the timestamp in milliseconds",
-        createdTimestamp: "2017-01-26"
-    },
-    {
-        id:16,
-        header: "test header ---",
-        content: "test content would recommend using Date.now() (with compatibility shim). It's slightly better because it's shorter & doesn't create a new Date object. However, if you don't want a shim & maximum compatibility, you could use the \"old\" method to get the timestamp in milliseconds",
-        createdTimestamp: "2017-01-26"
-    }];
+import NoteService from "../../../../../services/note.service";
+import {Navigate} from "react-router-dom";
 
 function Mapper (props){
     return (
@@ -40,7 +12,24 @@ function Mapper (props){
 }
 
 const BlogMain = () => {
-    return (<Mapper response={response}/>);
+    const [content, setContent] = useState([]);
+    const [isErr, setIsErr] = useState(false);
+
+    useEffect(() => {
+      NoteService.getListBasedOnCurrentScope().then(
+        (response) => {
+          setContent(response.data);
+        }).catch(
+          (error) => {
+          setIsErr(true);
+          localStorage.setItem("error", JSON.stringify(error.message));
+      });
+    }, []);
+
+    if (isErr === false)
+        return (<Mapper response={content}/>);
+    else
+        return <Navigate to="/error" />
 };
 
 export default BlogMain;

@@ -8,7 +8,6 @@ import AuthService from "./services/auth.service";
 import Login from "./components/navbar/userEssent/Login";
 import Register from "./components/navbar/userEssent/Register";
 import About from "./components/navbar/main/About";
-import NotFound from "./components/NotFound";
 import Profile from "./components/navbar/userEssent/Profile";
 import Notes from "./components/navbar/main/notes/blog/Notes";
 import Filters from "./components/navbar/main/filters/Filters";
@@ -18,6 +17,7 @@ import FullPostComment from "./components/navbar/main/notes/postAndComment/FullP
 import PostEdit from "./components/navbar/main/notes/post/PostEdit";
 import NewPost from "./components/navbar/main/notes/post/NewPost";
 import CommentEdit from "./components/navbar/main/notes/comment/CommentEdit";
+import ErrorPattern from "./components/ErrorPattern";
 
 const App = () => {
   const [showNotes, setShowNotes] = useState(false);
@@ -130,7 +130,7 @@ const App = () => {
             <Route path="/register" element={<Register/>} />
             <Route path="/profile" element={<Profile/>} />
 
-            <Route path="/*" element={<NotFound/>} />
+            <Route path="/*" element={<ErrorPattern/>} />
         </Routes>
       </div>
 

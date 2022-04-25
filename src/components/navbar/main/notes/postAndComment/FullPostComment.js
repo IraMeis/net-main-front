@@ -1,66 +1,68 @@
-//import React, { useState, useEffect } from "react";
-
-//import UserService from "../services/user.service";
 import PostUtil from "../post/post.util";
 import Separator from "../../Separator";
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 import CommentUtil from "../comment/comment.util";
 import NewComment from "./NewComment";
-
-let responsePost =
-    {
-        id:1,
-        header: "test header ---",
-        content: "test content would recommend using Date.now() (with compatibility shim). It's slightly better because it's shorter & doesn't create a new Date object. However, if you don't want a shim & maximum compatibility, you could use the \"old\" method to get the timestamp in milliseconds",
-        createdTimestamp: "2017-01-26"
-    }
-
-let responseComments =[{
-    id:1,
-    createdTimestamp:"2017-01-26",
-    modifiedTimestamp :"2018-01-26",
-    isDeleted: false,
-
-    author:{value:1, label:"username"},
-    postId:1,
-    isModified: false,
-    content:"eeedhfvjnfwpwoq"
-},{
-    id:1,
-    createdTimestamp:"2017-01-26",
-    modifiedTimestamp :"2018-01-26",
-    isDeleted: false,
-
-    author:{value:1, label:"username"},
-    postId:1,
-    isModified: true,
-    content:"eeedhfvjnfwpwoq"
-},{
-    id:1,
-    createdTimestamp:"2017-01-26",
-    modifiedTimestamp :"2018-01-26",
-    isDeleted: false,
-
-    author:{value:1, label:"username"},
-    postId:1,
-    isModified: true,
-    content:"eeedhfvjnfwpwoq"
-}]
+import React, {useEffect, useState} from "react";
+import NoteService from "../../../../../services/note.service";
+import ErrorPattern from "../../../../ErrorPattern";
+import CommentService from "../../../../../services/comment.service";
 
 const FullPostComment = () => {
-    const {id} = useParams();
+    const params = useParams();
+    const id = params.id;
 
-    return (
+    const [post, setPost] = useState([]);
+    const [comments, setComments] = useState([]);
+
+    const [isErrP, setIsErrP] = useState(false);
+    const [isErrC, setIsErrC] = useState(false);
+
+    useEffect(() => {
+        NoteService.getPostById(id).then(
+            (response) => {
+                setPost([response.data]);
+            }).catch(
+            (error) => {
+                setIsErrP(true);
+                localStorage.setItem("error", JSON.stringify(error.message));
+            });
+    }, []);
+
+    useEffect(() => {
+        CommentService.getCommentsByPostId(id).then(
+            (response) => {
+                setComments(response.data);
+            }).catch(
+            () => {
+                setIsErrC(true);
+            });
+    }, []);
+
+     if (isErrP === false && isErrC === false)
+        return (
         <div className="container">
             <Separator.Separator1/>
-            {/*{id}*/}
-            {[responsePost].map(PostUtil.PostForPostComments)}
-            {responseComments.map(CommentUtil.Comment)}
+            {post.map(PostUtil.PostForPostComments)}
+            {comments.map(CommentUtil.Comment)}
             <Separator.Separator1/>
             <NewComment/>
             <Separator.Separator4/>
         </div>
     );
+
+    else if (isErrP === false)
+        return (
+            <div className="container">
+                <Separator.Separator1/>
+                {[post].map(PostUtil.PostForPostComments)}
+                <Separator.Separator1/>
+                <ErrorPattern message={"Comments are not available now"}/>
+                <Separator.Separator2/>
+            </div>
+        );
+    else
+        return <Navigate to="/error" />
 };
 
 export default FullPostComment;
