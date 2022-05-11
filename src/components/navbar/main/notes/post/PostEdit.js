@@ -1,26 +1,32 @@
 import PostUtil from "../post/post.util";
 import Separator from "../../Separator";
-import {useParams} from "react-router-dom";
-
-let responsePost =
-    {
-        id:1,
-        header: "test header ---",
-        content: "test content would recommend using Date.now() (with compatibility shim). It's slightly better because it's shorter & doesn't create a new Date object. However, if you don't want a shim & maximum compatibility, you could use the \"old\" method to get the timestamp in milliseconds",
-        createdTimestamp: "2017-01-26",
-        scope:{value:1, label:"private"}
-    }
+import NoteService from "../../../../../services/note.service";
+import {Navigate, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 const PostEdit = () => {
-    const {id} = useParams();
+    const id = useParams().id;
+    const [post, setPost] = useState([]);
+    const [isErr, setIsErr] = useState(false);
+
+    useEffect(() => {
+        NoteService.getPostById(id).then(
+            (response) => {
+                setPost([response.data]);
+            }).catch(
+            (error) => {
+                setIsErr(true);
+                localStorage.setItem("error", JSON.stringify(error.message));
+            });
+    }, []);
+
+    if(isErr===true)
+        return <Navigate to="/error" />
 
     return (
         <div className="container">
             <Separator.Separator1/>
-            {/*{id}*/}
-            {[responsePost].map(PostUtil.PostForUpdate)}
-            {/*<Separator.SeparatorNarrow/>*/}
-
+            {post.map(PostUtil.PostForUpdate)}
         </div>
     );
 };

@@ -12,9 +12,19 @@ const getPostById = (id) => {
     return axios.get(API_URL + `/getPost/${id}`, { headers: authHeader() });
 };
 
+const update = (obj) => {
+    return axios.put(API_URL + `/updatePost`, obj,{ headers: authHeader() });
+};
+
+const deletePost = (id) => {
+    return axios.delete(API_URL + `/deletePost/${id}`,{ headers: authHeader() });
+};
+
 const NoteService = {
     getListBasedOnCurrentScope,
-    getPostById
+    getPostById,
+    update,
+    deletePost
 };
 
 export default NoteService;

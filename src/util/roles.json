@@ -1,0 +1,19 @@
+{
+  "system":{"name":"system", "code":1},
+
+  "comment_viewer":{"name":"comment_viewer", "code":2},
+  "comment_modifier":{"name":"comment_modifier", "code":3},
+
+  "post_viewer":{"name":"post_viewer", "code":4},
+  "post_modifier":{"name":"post_modifier", "code":5},
+
+  "user_data_viewer":{"name":"user_data_viewer", "code":6},
+  "user_data_modifier":{"name":"user_data_modifier", "code":7},
+
+  "user_data_admin_viewer":{"name":"user_data_admin_viewer", "code":8},
+  "user_data_admin_deleter":{"name":"user_data_admin_deleter", "code":9},
+
+  "comment_admin_viewer":{"name":"comment_admin_viewer", "code":10},
+  "comment_admin_deleter":{"name":"comment_admin_deleter", "code":11}
+
+}

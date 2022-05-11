@@ -1,22 +1,43 @@
-import {Link} from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import AuthService from "../../../../../services/auth.service";
 import scopes from "../../../../../util/scopes.json"
 import Separator from "../../Separator";
 import React, {createContext, useContext, useState} from "react";
+import NoteService from "../../../../../services/note.service";
 
-const user = AuthService.getCurrentUser();
+// const user = AuthService.getCurrentUser();
 
 const PostParams = createContext(null);
 
 const BarNoComment = () =>{
     const data = useContext(PostParams);
+    const [isErr, setIsErr] = useState(false);
+    let navigate = useNavigate();
+    localStorage.setItem("locationBack", JSON.stringify(window.location.pathname));
+    function handleDelete () {
+        NoteService.deletePost(data.id)
+            .then(
+                () => {
+                    navigate(`/note`);
+                    window.location.reload();
+                })
+            .catch(
+                (error) => {
+                    setIsErr(true);
+                    localStorage.setItem("error", JSON.stringify(error.message));
+                });
+    };
+
+    if(isErr===true)
+        return <Navigate to="/error" />
     return (
-        <nav className=" navbar navbar-expand navbar-light">
+        <nav className=" navbar navbar-expand navbar-light" >
                 <div className="navbar-nav ml-auto">
-                    <Link to={`/note/post/edit/${data.id}`} className="nav-link" >
+                    <Link to={`/note/post/edit/${data.id}`} className="nav-link">
                         Редактировать
                     </Link>
-                    <Link to={`/#`} className="nav-link" >
+                    <Link to={`/#`} className="nav-link"
+                          onClick ={() => handleDelete()}>
                         Удалить
                     </Link>
                 </div>
@@ -25,9 +46,27 @@ const BarNoComment = () =>{
 
 const BarLinkComment = () =>{
     const data = useContext(PostParams);
+    const [isErr, setIsErr] = useState(false);
+    let navigate = useNavigate();
+    localStorage.setItem("locationBack", JSON.stringify(window.location.pathname));
+    function handleDelete () {
+        NoteService.deletePost(data.id)
+            .then(
+                () => {
+                    navigate(`/note`);
+                    window.location.reload();
+                })
+            .catch(
+                (error) => {
+                    setIsErr(true);
+                    localStorage.setItem("error", JSON.stringify(error.message));
+                });
+    };
+
+    if(isErr===true)
+        return <Navigate to="/error" />
     return (
         <nav className=" navbar navbar-expand navbar-light">
-            {/*<div className="navbar-nav">*/}
 
             <div className="navbar-nav">
                 <Link to={`/note/post/${data.id}`} className="nav-link" >
@@ -35,22 +74,42 @@ const BarLinkComment = () =>{
                 </Link>
             </div>
             <div className="navbar-nav ml-auto">
-                <Link to={`/note/post/edit/${data.id}`} className="nav-link" >
+                <Link to={`/note/post/edit/${data.id}`} className="nav-link">
                     Редактировать
                 </Link>
-                <Link to={`/#`} className="nav-link" >
+                <Link to={`/#`} className="nav-link"
+                      onClick ={() => handleDelete()}>
                     Удалить
                 </Link>
             </div>
-            {/*{user.roles.some(role =>["system","post_modifier"].includes(role)) &&*/}
-            {/*(<Link to={`/note/${props.id}`} className="nav-link" >*/}
-            {/*    Редактировать*/}
-            {/*</Link>)*/}
-            {/*}*/}
 
-            {/*</div>*/}
         </nav>)
 }
+
+// const CommonBar=(props)=>{
+//     const data = useContext(PostParams);
+//     const [isErr, setIsErr] = useState(false);
+//     let navigate = useNavigate();
+//     function handleDelete () {
+//         NoteService.deletePost(data.id)
+//             .then(
+//                 () => {
+//                     navigate(`/note`);
+//                     window.location.reload();
+//                 })
+//             .catch(
+//                 (error) => {
+//                     setIsErr(true);
+//                     localStorage.setItem("error", JSON.stringify(error.message));
+//                 });
+//     };
+//
+//     if(isErr===true)
+//         return <Navigate to="/error" />
+//     else if (props.needComment===true)
+//         return <BarLinkComment iid ="1" del={handleDelete()}/>
+//     else return <BarNoComment iid ="2" del={handleDelete()}/>
+// }
 
 const BarSearch = () =>{
     const data = useContext(PostParams);
@@ -76,6 +135,7 @@ const PostAndBarLinkComment = () => {
                 <p>{data.content}</p>
                 <hr/>
                 <BarLinkComment/>
+            {/*<CommonBar needComment={true}/>*/}
         </article>
     );
 }
@@ -91,6 +151,7 @@ const PostAndBarNoComment = () => {
                 <p>{data.content}</p>
                 <hr/>
                 <BarNoComment/>
+                {/*<CommonBar needComment={true}/>*/}
             </div>
         </article>
     );
@@ -121,30 +182,34 @@ const PostSearch = () => {
     );
 }
 
-const ButtonsPattern = () => {
+const ButtonsPattern = (props) => {
   return (
       <div>
-          <button type="button" className="btn btn-outline-secondary float-left ">Отмена</button>
-          <button type="button" className="btn btn-outline-info float-right ">Готово</button>
+          <button type="button" className="btn btn-outline-secondary float-left "
+          onClick={props.nch}>Отмена</button>
+          <button type="button" className="btn btn-outline-info float-right "
+          onClick={props.ch}>Готово</button>
       </div>
   );
 }
 
-const ScopesPattern = () => {
-  return (
+const ScopesPattern = (props) => {
+    return (
       <div className="form-group">
           <label htmlFor="exampleFormControlSelect">Область видимости</label>
-          <select className="form-control w-25">
-              <option>{scopes.p1.visual}</option>
-              <option>{scopes.p2.visual}</option>
-              <option>{scopes.p3.visual}</option>
-              <option>{scopes.p4.visual}</option>
+          <select className="form-control w-25"
+                  onChange={props.change}
+                  value={props.scope}>
+              <option value={scopes.p1.code}>{scopes.p1.visual}</option>
+              <option value={scopes.p2.code}>{scopes.p2.visual}</option>
+              <option value={scopes.p3.code}>{scopes.p3.visual}</option>
+              <option value={scopes.p4.code}>{scopes.p4.visual}</option>
           </select>
       </div>
-  );
+    );
 }
 
-const UpdatablePost = () => {
+const UpdatablePost = (props) => {
     const data = useContext(PostParams);
 
     const [header, setHeader] = useState(data.header);
@@ -152,6 +217,46 @@ const UpdatablePost = () => {
         const h = e.target.value;
         setHeader(h);
     }
+
+    const [content, setContent] = useState(data.content);
+    const onChangeContent = (e) => {
+        const content = e.target.value;
+        setContent(content);
+    };
+
+    const[scope,setScope] = useState(data.scope.value);
+    const onChangeScope = (e) => {
+        const sc = e.target.value;
+        setScope(sc);
+    }
+
+    const [isErr, setIsErr] = useState(false);
+
+    let navigate = useNavigate();
+    let locationBack=JSON.parse(localStorage.getItem("locationBack"));
+    localStorage.removeItem("locationBack");
+
+    const handleChanges = () => {
+        NoteService.update({id:data.id, content, header, scope:{value:scope}})
+            .then(
+            () => {
+                navigate(locationBack);
+                window.location.reload();
+            })
+            .catch(
+            (error) => {
+                setIsErr(true);
+                localStorage.setItem("error", JSON.stringify(error.message));
+            });
+
+    };
+
+    const handleNoChanges = () => {
+        navigate(locationBack);
+    }
+
+    if(isErr===true)
+        return <Navigate to="/error" />
 
     return (
         <div className="jumbotron bg-light">
@@ -167,14 +272,21 @@ const UpdatablePost = () => {
             </div>
 
             <div className="input-large">
-                <textarea className="md-textarea md-textarea-auto form-control" placeholder="Текст" rows="8">
-                    {data.content}
+                <textarea className="md-textarea md-textarea-auto form-control"
+                          placeholder="Текст"
+                          rows="8"
+                          onChange={onChangeContent}>
+                    {content}
                 </textarea>
             </div>
 
-            <ScopesPattern/>
+            <ScopesPattern scope={scope}
+                           change={onChangeScope}/>
+
             <Separator.Separator1/>
-            <ButtonsPattern/>
+
+            <ButtonsPattern ch={handleChanges}
+                            nch={handleNoChanges}/>
         </div>
     );
 }
