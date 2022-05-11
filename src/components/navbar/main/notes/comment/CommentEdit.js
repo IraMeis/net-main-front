@@ -1,28 +1,30 @@
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 import CommentUtil from "./comment.util";
-
-let responseComment ={
-    id:1,
-    createdTimestamp:"2017-01-26",
-    modifiedTimestamp :"2018-01-26",
-    isDeleted: false,
-
-    author:{value:1, label:"username"},
-    postId:1,
-    isModified: false,
-    content:"eeedhfvjnfwpwoq"
-}
+import {useEffect, useState} from "react";
+import CommentService from "../../../../../services/comment.service";
 
 const CommentEdit = () => {
-    const {id} = useParams();
+    const id = useParams().id;
+    const [comment, setComment] = useState([]);
+    const [isErr, setIsErr] = useState(false);
+
+    useEffect(() => {
+        CommentService.getCommentByCommentId(id).then(
+            (response) => {
+                setComment([response.data]);
+            }).catch(
+            (error) => {
+                setIsErr(true);
+                localStorage.setItem("error", JSON.stringify(error.message));
+            });
+    }, []);
+
+    if(isErr===true)
+        return <Navigate to="/error" />
 
     return (
         <div className="container">
-            {/*<Separator.SeparatorNarrow/>*/}
-            {/*{id}*/}
-            {[responseComment].map(CommentUtil.CommentForUpdate)}
-            {/*<Separator.SeparatorNarrow/>*/}
-
+            {comment.map(CommentUtil.CommentForUpdate)}
         </div>
     );
 }

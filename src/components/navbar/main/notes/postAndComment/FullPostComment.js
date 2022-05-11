@@ -39,7 +39,9 @@ const FullPostComment = () => {
             });
     }, []);
 
-     if (isErrP === false && isErrC === false)
+    localStorage.setItem("locationPost", JSON.stringify(window.location.pathname));
+
+     if (isErrP === false && isErrC === false){
         return (
         <div className="container">
             <Separator.Separator1/>
@@ -50,7 +52,7 @@ const FullPostComment = () => {
             <Separator.Separator4/>
         </div>
     );
-
+    }
     else if (isErrP === false)
         return (
             <div className="container">
