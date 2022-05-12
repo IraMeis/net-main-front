@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import roles from "./util/roles.json"
 
 import AuthService from "./services/auth.service";
 
@@ -30,7 +31,11 @@ const App = () => {
     if (user) {
       setCurrentUser(user);
       setShowNotes(true);
-      setShowFilters(user.roles.some(role =>["system","user_data_admin_viewer"].includes(role)));
+      setShowFilters(user.roles.some(role => [
+          roles.system.name,
+          roles.user_data_admin_viewer.name,
+          roles.user_data_admin_deleter.name]
+          .includes(role)));
     }
 
     EventBus.on("logout", () => {

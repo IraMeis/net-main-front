@@ -1,5 +1,6 @@
 import React from "react";
 import AuthService from "../../../services/auth.service";
+import roles from "../../../util/roles.json";
 
 function AdminData(props) {
     if (props.isNeeded)
@@ -40,7 +41,11 @@ const Profile = () => {
         <p>
             <strong>About:</strong> {currentUser.about === undefined ? 'no data' : currentUser.about}
         </p>
-        <AdminData isNeeded={currentUser.roles.some(role =>["system","user_data_admin_viewer"].includes(role))}
+        <AdminData isNeeded={currentUser.roles.some(role => [
+                            roles.system.name,
+                            roles.user_data_admin_viewer.name,
+                            roles.user_data_admin_deleter.name]
+                            .includes(role))}
                    user={currentUser}/>
     </div>
   );
