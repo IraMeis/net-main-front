@@ -224,7 +224,7 @@ const UpdatablePost = (props) => {
         setContent(content);
     };
 
-    const[scope,setScope] = useState(data.scope.value);
+    const [scope, setScope] = useState(data.scope.value);
     const onChangeScope = (e) => {
         const sc = e.target.value;
         setScope(sc);
@@ -299,6 +299,42 @@ const CreatablePost = () => {
         setHeader(h);
     }
 
+    const [content, setContent] = useState("");
+    const onChangeContent = (e) => {
+        const content = e.target.value;
+        setContent(content);
+    };
+
+    const [scope, setScope] = useState(1);
+    const onChangeScope = (e) => {
+        const sc = e.target.value;
+        setScope(sc);
+    }
+
+    const [isErr, setIsErr] = useState(false);
+    let navigate = useNavigate();
+
+    const handleChanges = () => {
+        NoteService.create({content, header, scope:{value:scope}})
+            .then(
+                () => {
+                    navigate("/note");
+                    window.location.reload();
+                })
+            .catch(
+                (error) => {
+                    setIsErr(true);
+                    localStorage.setItem("error", JSON.stringify(error.message));
+                });
+    };
+
+    const handleNoChanges = () => {
+        navigate("/note");
+    }
+
+    if(isErr===true)
+        return <Navigate to="/error" />
+
     return (
         <div className="jumbotron bg-light">
 
@@ -311,13 +347,21 @@ const CreatablePost = () => {
             </div>
 
             <div className="input-large">
-                <textarea className="md-textarea md-textarea-auto form-control" placeholder="Текст" rows="8">
+                <textarea className="md-textarea md-textarea-auto form-control"
+                          placeholder="Текст"
+                          rows="8"
+                          onChange={onChangeContent}>
+                    {content}
                 </textarea>
             </div>
 
-            <ScopesPattern/>
+            <ScopesPattern scope={scope}
+                           change={onChangeScope}/>
+
             <Separator.Separator1/>
-            <ButtonsPattern/>
+
+            <ButtonsPattern ch={handleChanges}
+                            nch={handleNoChanges}/>
         </div>
     );
 }

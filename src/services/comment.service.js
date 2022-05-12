@@ -20,11 +20,16 @@ const deleteComment = (id) => {
     return axios.delete(API_URL + `/deleteComment/${id}`,{ headers: authHeader() });
 };
 
+const create = (obj) => {
+    return axios.post(API_URL + `/createComment`, obj,{ headers: authHeader() });
+};
+
 const CommentService = {
     getCommentByCommentId,
     getCommentsByPostId,
     update,
-    deleteComment
+    deleteComment,
+    create
 };
 
 export default CommentService;

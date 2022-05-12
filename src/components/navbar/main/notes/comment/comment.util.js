@@ -3,7 +3,6 @@ import React, {createContext, useContext, useState} from "react";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import Separator from "../../Separator";
 import CommentService from "../../../../../services/comment.service";
-import NoteService from "../../../../../services/note.service";
 
 const user = AuthService.getCurrentUser();
 

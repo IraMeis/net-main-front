@@ -20,11 +20,16 @@ const deletePost = (id) => {
     return axios.delete(API_URL + `/deletePost/${id}`,{ headers: authHeader() });
 };
 
+const create = (obj) => {
+    return axios.post(API_URL + `/createPost`, obj,{ headers: authHeader() });
+}
+
 const NoteService = {
     getListBasedOnCurrentScope,
     getPostById,
     update,
-    deletePost
+    deletePost,
+    create
 };
 
 export default NoteService;

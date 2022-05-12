@@ -48,7 +48,7 @@ const FullPostComment = () => {
             {post.map(PostUtil.PostForPostComments)}
             {comments.map(CommentUtil.Comment)}
             <Separator.Separator1/>
-            <NewComment/>
+            <NewComment postId={id}/>
             <Separator.Separator4/>
         </div>
     );
