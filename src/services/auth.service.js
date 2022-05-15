@@ -3,10 +3,9 @@ import getControllerPath from "../util/GetControllerPath.js";
 
 const API_URL = getControllerPath("auth");
 
-const register = (username, email, password) => {
+const register = (username, password) => {
   return axios.post(API_URL + "/register", {
     username,
-    email,
     password,
   });
 };
