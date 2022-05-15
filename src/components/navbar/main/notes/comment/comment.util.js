@@ -71,7 +71,7 @@ const CommentView = () => {
                     {data.isModified &&(<em>Изменено {data.modifiedTimestamp} </em>)}
                 </div>
                 {data.isDeleted &&
-                (<div className="col d-flex justify-content-end">g
+                (<div className="col d-flex justify-content-end">
                     {(<em>Данный комментарий был удален </em>)}
                 </div>)}
             </div>

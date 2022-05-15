@@ -243,9 +243,9 @@ const UpdatablePost = (props) => {
 
     let navigate = useNavigate();
     let locationBack=JSON.parse(localStorage.getItem("locationBack"));
-    localStorage.removeItem("locationBack");
 
     const handleChanges = () => {
+        localStorage.removeItem("locationBack");
         NoteService.update({id:data.id, content, header, scope:{value:scope}})
             .then(
             () => {

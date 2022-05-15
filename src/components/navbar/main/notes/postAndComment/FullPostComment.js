@@ -19,6 +19,7 @@ const FullPostComment = () => {
     const [isErrC, setIsErrC] = useState(false);
 
     useEffect(() => {
+        localStorage.setItem("locationPost", JSON.stringify(window.location.pathname));
         NoteService.getPostById(id).then(
             (response) => {
                 setPost([response.data]);
@@ -38,8 +39,6 @@ const FullPostComment = () => {
                 setIsErrC(true);
             });
     }, []);
-
-    localStorage.setItem("locationPost", JSON.stringify(window.location.pathname));
 
      if (isErrP === false && isErrC === false){
         return (
