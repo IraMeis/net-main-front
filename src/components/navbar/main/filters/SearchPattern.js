@@ -126,15 +126,36 @@ const Radio3 = (props) => {
     return(
         <div>
             <div className="form-check form-check-inline">
-                <input className="form-check-input" type="radio" name={`Radio3${props.id}`} id="flexRadioDefault1"/>
+                <input className="form-check-input"
+                       value="1"
+                       type="radio"
+                       name={`Radio3${props.id}`}
+                       id="flexRadioDefault1"
+                       onChange={props.ch}
+                       checked={props.chval == '1' ? true : false}
+                />
                     <label className="form-check-label" htmlFor="flexRadioDefault1">{props.l1}</label>
             </div>
             <div className="form-check form-check-inline">
-                <input className="form-check-input" type="radio" name={`Radio3${props.id}`} id="flexRadioDefault2"/>
+                <input className="form-check-input"
+                       value="2"
+                       type="radio"
+                       name={`Radio3${props.id}`}
+                       id="flexRadioDefault2"
+                       onChange={props.ch}
+                       checked={props.chval == '2' ? true : false}
+                />
                     <label className="form-check-label" htmlFor="flexRadioDefault2">{props.l2}</label>
             </div>
             <div className="form-check form-check-inline">
-                <input className="form-check-input" type="radio" name={`Radio3${props.id}`} id="flexRadioDefault3"/>
+                <input className="form-check-input"
+                       value="3"
+                       type="radio"
+                       name={`Radio3${props.id}`}
+                       id="flexRadioDefault3"
+                       onChange={props.ch}
+                       checked={props.chval == '3' ? true : false}
+                />
                 <label className="form-check-label" htmlFor="flexRadioDefault3">{props.l3}</label>
             </div>
         </div>
@@ -154,7 +175,7 @@ const Radio3Labeled = (props) => {
   return(
       <div>
           <label>{props.label}</label>
-          <Radio3 id={props.id} l1={props.l1} l2={props.l2} l3={props.l3}/>
+          <Radio3 id={props.id} l1={props.l1} l2={props.l2} l3={props.l3} ch={props.ch} chval={props.chval}/>
       </div>
   );
 }

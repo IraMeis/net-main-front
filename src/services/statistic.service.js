@@ -10,8 +10,18 @@ const getFilterPost = (search) => {
     return axios.get(API_URL_POST + "/getFilteredPosts" + search, { headers: authHeader() });
 };
 
+const getFilterUser = (search) => {
+    return axios.get(API_URL_USER + "/getFilteredUsers" + search, { headers: authHeader() });
+};
+
+const getUserStatistic = (id) => {
+    return axios.get(API_URL_STATISTIC + `/getUserStatistic/${id}`, { headers: authHeader() });
+};
+
 const StatisticService = {
-    getFilterPost
+    getFilterPost,
+    getFilterUser,
+    getUserStatistic
 }
 
 export default StatisticService;
