@@ -3,8 +3,18 @@ import React, {createContext, useContext, useState} from "react";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import Separator from "../../Separator";
 import CommentService from "../../../../../services/comment.service";
+import roles from "../../../../../util/roles.json";
 
-const user = AuthService.getCurrentUser();
+const canUpdateComment = (authorId) => {
+    return AuthService.getCurrentUser() && ((AuthService.getCurrentUser().id === authorId &&
+            AuthService.getCurrentUser().roles.includes(roles.comment_modifier.name)) ||
+        AuthService.getCurrentUser().roles.includes(roles.system.name));
+};
+
+const canDeleteComment = (authorId) => {
+    return canUpdateComment(authorId) ||
+    AuthService.getCurrentUser().roles.includes(roles.comment_admin_deleter.name)
+};
 
 const CommentParams = createContext(null);
 
@@ -40,13 +50,13 @@ const CommentView = () => {
                 <nav className="navbar navbar-text navbar-light center-block">
                     <div className="navbar-nav">
                         <small>
-                            <Link to={`/note/comment/edit/${data.id}`} className="nav-link" props ={data}>
+                            {!data.isDeleted && canUpdateComment(data.author.value) && (<Link to={`/note/comment/edit/${data.id}`} className="nav-link" props ={data}>
                                 Редактировать
-                            </Link>
-                            <Link to={window.location.pathname} className="nav-link"
+                            </Link>)}
+                            {!data.isDeleted && canDeleteComment(data.author.value) &&(<Link to={window.location.pathname} className="nav-link"
                                   onClick ={() => handleDelete()}>
                                 Удалить
-                            </Link>
+                            </Link>)}
                         </small>
                     </div>
                 </nav>
@@ -61,8 +71,8 @@ const CommentView = () => {
                     {data.isModified &&(<em>Изменено {data.modifiedTimestamp} </em>)}
                 </div>
                 {data.isDeleted &&
-                (<div className="col d-flex justify-content-end">
-                    {data.isModified &&(<em>Данный комментарий был удален </em>)}
+                (<div className="col d-flex justify-content-end">g
+                    {(<em>Данный комментарий был удален </em>)}
                 </div>)}
             </div>
         </div>

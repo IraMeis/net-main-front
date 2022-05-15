@@ -4,12 +4,18 @@ import scopes from "../../../../../util/scopes.json"
 import Separator from "../../Separator";
 import React, {createContext, useContext, useState} from "react";
 import NoteService from "../../../../../services/note.service";
+import roles from "../../../../../util/roles.json";
 
-// const user = AuthService.getCurrentUser();
+const canEditPost = AuthService.getCurrentUser() &&
+    AuthService.getCurrentUser()
+    .roles.some(role => [
+    roles.system.name,
+    roles.post_modifier.name]
+    .includes(role));
 
 const PostParams = createContext(null);
 
-const BarNoComment = () =>{
+const BarNoComment = () => {
     const data = useContext(PostParams);
     const [isErr, setIsErr] = useState(false);
     let navigate = useNavigate();
@@ -30,7 +36,8 @@ const BarNoComment = () =>{
 
     if(isErr===true)
         return <Navigate to="/error" />
-    return (
+    if(canEditPost)
+        return (
         <nav className=" navbar navbar-expand navbar-light" >
                 <div className="navbar-nav ml-auto">
                     <Link to={`/note/post/edit/${data.id}`} className="nav-link">
@@ -42,9 +49,11 @@ const BarNoComment = () =>{
                     </Link>
                 </div>
         </nav>)
+    else
+        return <div/>;
 }
 
-const BarLinkComment = () =>{
+const BarLinkComment = () => {
     const data = useContext(PostParams);
     const [isErr, setIsErr] = useState(false);
     let navigate = useNavigate();
@@ -73,7 +82,7 @@ const BarLinkComment = () =>{
                     Комментарии
                 </Link>
             </div>
-            <div className="navbar-nav ml-auto">
+            {canEditPost && (<div className="navbar-nav ml-auto">
                 <Link to={`/note/post/edit/${data.id}`} className="nav-link">
                     Редактировать
                 </Link>
@@ -81,7 +90,7 @@ const BarLinkComment = () =>{
                       onClick ={() => handleDelete()}>
                     Удалить
                 </Link>
-            </div>
+            </div>)}
 
         </nav>)
 }
