@@ -16,6 +16,7 @@ const GetStatistic = (props) => {
     return (
         <div>
             <Separator.Separator4/>
+            <p> <strong>Login:</strong> {props.username}</p>
             <p> <strong>Id:</strong> {props.userId}</p>
             <p> <strong>UUID:</strong> {props.userUuid}</p>
             <p> <strong>Created (registered) at </strong> {props.registrationTime}</p>
