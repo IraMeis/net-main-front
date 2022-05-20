@@ -6,13 +6,13 @@ import {Navigate} from "react-router-dom";
 
 const StatisticUser = () => {
 
-    const ResponseMapper =() =>{
+    const ResponseMapper = () => {
         return (
             <div>
                 <Separator.Separator4/>
                 <div className={"jumbotron bg-light"}>
                     <h4 className={"text-center"}>Statistic</h4>
-                    {[resp].map(GetStatistic)}
+                    {resp.map(GetStatistic)}
                 </div>
             </div>
         );
@@ -39,7 +39,7 @@ const StatisticUser = () => {
         StatisticService.getUserStatistic(id)
             .then(
                 (response) => {
-                    setResp(response.data);
+                    setResp([response.data]);
                     setIsShow(true);
                 })
             .catch(

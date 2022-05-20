@@ -13,7 +13,9 @@ const FilterPost = () => {
                 <Separator.Separator4/>
                 <div className={"jumbotron bg-light"}>
                     <h4 className={"text-center"}>Search result</h4>
-                    {resp.map(PostUtil.PostForSearch)}
+                    {resp.length === 0 ?
+                        <p className={"text-center"}>No content with current search parameters found</p> :
+                        resp.map(PostUtil.PostForSearch)}
                 </div>
             </div>
         );

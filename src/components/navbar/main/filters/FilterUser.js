@@ -13,7 +13,9 @@ const FilterUser = () => {
                             <Separator.Separator4/>
                             <div className={"jumbotron bg-light"}>
                                     <h4 className={"text-center"}>Search result</h4>
-                                    {resp.map(SearchUser)}
+                                    {resp.length === 0 ?
+                                        <p className={"text-center"}>No content with current search parameters found</p> :
+                                        resp.map(SearchUser)}
                             </div>
                     </div>
                 );
