@@ -1,6 +1,8 @@
 import Separator from "../Separator";
 import React, {createContext, useContext, useState} from "react";
 import UserService from "../../../../services/user.service";
+import {Navigate} from "react-router-dom";
+import scopes from "../../../../util/scopes.json";
 
 const SearchUserParams = createContext(null);
 const CurMasUserParams = createContext(null);
@@ -42,7 +44,45 @@ const BarSearchUser = () => {
         return copy;
     }
 
+    const getNameByScopeCode = (code) =>{
+        let scopesMas = [scopes.p1, scopes.p2, scopes.p3, scopes.p4];
+        for (var i = 0; i < scopesMas.length; i++){
+            if (scopesMas[i].code === code){
+                return scopesMas[i].name;
+            }
+        }
+    }
+
+    const getVisByScopeCode = (code) => {
+        let scopesMas = [scopes.p1, scopes.p2, scopes.p3, scopes.p4];
+        for (var i = 0; i < scopesMas.length; i++){
+            if (scopesMas[i].code === code){
+                return scopesMas[i].visual;
+            }
+        }
+    }
+
+    function onScopeChange (resp, id, scope) {
+        let copy = resp.slice();
+        for(let i = 0; i < copy.length; i++) {
+            if(resp[i].id===id) {
+                resp[i].scope = {value: scope, label: getNameByScopeCode(scope)};
+                break;
+            }
+        }
+        return copy;
+    }
+
     const [isErr, setIsErr] = useState(false);
+    const [scopeCode, setScopeCode] = useState(data.scope.value);
+
+    const handleScope = () => {
+        if(scopeCode > 0 && scopeCode < 5)
+        if(scopeCode>3)
+            setScopeCode(1);
+        else
+            setScopeCode(scopeCode+1);
+    }
 
     function handleDelete () {
         if (data && data.isDeleted) {
@@ -98,16 +138,45 @@ const BarSearchUser = () => {
         }
     };
 
+    function handleSaveScope () {
+        UserService.setScope(data.id, scopeCode)
+            .then(
+                () => {
+                    updateFunc(onScopeChange(updateResp, data.id, scopeCode));
+                })
+            .catch(
+                (error) => {
+                    setIsErr(true);
+                    localStorage.setItem("error", JSON.stringify(error.message));
+                });
+    }
+
+    if(isErr===true)
+        return <Navigate to="/error" />
+
     return (
         <div className={"float-right"}>
+            <div className="btn-group" role="group" aria-label="Basic example">
+                <button type="button"
+                        className="btn btn-info"
+                        onClick ={handleScope}
+                >
+                    {getVisByScopeCode(scopeCode)}</button>
+                <button type="button"
+                        className="btn btn-secondary"
+                        onClick ={() => handleSaveScope()}
+                >
+                    Сохранить</button>
+            </div>
+            <button type="button" className="btn btn-outline-secondary border-0" disabled> </button>
             <button type="button"
-                    className="btn btn-outline-secondary"
+                    className="btn btn-outline-danger"
                     onClick ={() => handleBan()}
             >
                 {!data.isTokenAllowed ? "Разбанить" : "В бан"}</button>
             <button type="button" className="btn btn-outline-dark border-0" disabled> </button>
             <button type="button"
-                    className="btn btn-outline-secondary"
+                    className="btn btn-outline-danger"
                     onClick ={() => handleDelete()}
             >
                 {data.isDeleted ? "Восстановить" : "Удалить"}</button>

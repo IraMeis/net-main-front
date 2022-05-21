@@ -20,11 +20,16 @@ const banUser = (id) => {
   return axios.put(API_URL + `/banUser/${id}`, {},{ headers: authHeader() });
 };
 
+const setScope = (id, scope) => {
+  return axios.put(API_URL + `/setScope/${id}/${scope}`, {},{ headers: authHeader() });
+};
+
 const UserService = {
   deleteUser,
   undeleteUser,
   banUser,
-  unbanUser
+  unbanUser,
+  setScope
 };
 
 export default UserService;
