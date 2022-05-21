@@ -1,6 +1,5 @@
 import SearchPattern from "./SearchPattern"
 import PostUtil from "../notes/post/post.util";
-import Separator from "../Separator";
 import React, {useState} from "react";
 import {Navigate} from "react-router-dom";
 import StatisticService from "../../../../services/statistic.service";
@@ -8,17 +7,11 @@ import StatisticService from "../../../../services/statistic.service";
 const FilterPost = () => {
 
     const ResponseMapper = () => {
-        return (
-            <div>
-                <Separator.Separator4/>
-                <div className={"jumbotron bg-light"}>
-                    <h4 className={"text-center"}>Search result</h4>
-                    {resp.length === 0 ?
-                        <p className={"text-center"}>No content with current search parameters found</p> :
-                        resp.map(PostUtil.PostForSearch)}
-                </div>
-            </div>
-        );
+        return (<PostUtil.GetSearchPostWithParams resp={resp} f={handleState}/>);
+    }
+
+    function handleState(e){
+        setResp(e);
     }
 
     const [dfrom, setDfrom] = useState();
@@ -37,11 +30,11 @@ const FilterPost = () => {
         const content = e.target.value;
         setLabel(content);
     };
-    const [inh, setInh] = useState(false);
+    const [inh, setInh] = useState(true);
     const onChangeInh = () => {
         setInh(!inh);
     };
-    const [inmc, setInmc] = useState(false);
+    const [inmc, setInmc] = useState(true);
     const onChangeInmc = () => {
         setInmc(!inmc);
     };
@@ -126,8 +119,6 @@ const FilterPost = () => {
     }
 
     const handleFilter = () => {
-        // console.log(makeSearchRequest())
-        // setIsShow(true);
         StatisticService.getFilterPost(makeSearchRequest())
             .then(
                 (response) => {

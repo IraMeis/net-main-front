@@ -14,6 +14,7 @@ const canEditPost = AuthService.getCurrentUser() &&
     .includes(role));
 
 const PostParams = createContext(null);
+const SearchPost = createContext(null);
 
 const BarNoComment = () => {
     const data = useContext(PostParams);
@@ -122,13 +123,85 @@ const BarLinkComment = () => {
 
 const BarSearch = () =>{
     const data = useContext(PostParams);
+    const updateFunc = useContext(SearchPost).f;
+    const updateResp = useContext(SearchPost).resp;
+
+    function onDelChange(resp, id) {
+        let copy = resp.slice();
+        for(let i = 0; i < copy.length; i++) {
+            if(resp[i].id===id) {
+                resp[i].isDeleted = !resp[i].isDeleted;
+                break;
+            }
+        }
+        return copy;
+    }
+
+    let navigate = useNavigate();
+    const [isErr, setIsErr] = useState(false);
+    function handleDelete () {
+        if (data && data.isDeleted) {
+            updateFunc(onDelChange(updateResp, data.id));
+            NoteService.undeletePost(data.id)
+                .then(
+                    () => {
+                        updateFunc(onDelChange(updateResp, data.id));
+                    })
+                .catch(
+                    (error) => {
+                        setIsErr(true);
+                        localStorage.setItem("error", JSON.stringify(error.message));
+                    });
+        }
+        else if (data && !data.isDeleted){
+            updateFunc(onDelChange(updateResp, data.id));
+            NoteService.deletePost(data.id)
+                .then(
+                    () => {
+                        console.log(updateResp);
+                        console.log(updateFunc);
+                        updateFunc(onDelChange(updateResp, data.id));
+                    })
+                .catch(
+                    (error) => {
+                        setIsErr(true);
+                        localStorage.setItem("error", JSON.stringify(error.message));
+                    });
+        }
+    };
+
+    const handleEdit = () => {
+        navigate(`/note/post/edit/${data.id}`);
+        window.location.reload();
+    }
+
+    const handleView = () => {
+        navigate(`/note/post/${data.id}`);
+        window.location.reload();
+    }
+
+    if(isErr===true)
+        return <Navigate to="/error" />
+
     return (
         <div>
-            <button type="button" className="btn btn-outline-info float-left ">Перейти к просмотру статьи</button>
+            <button type="button"
+                    className="btn btn-outline-info float-left "
+                    onClick ={handleView}
+            >
+                Перейти к просмотру статьи</button>
             <div className={"float-right"}>
-                <button type="button" className="btn btn-outline-secondary">Редактировать</button>
+                <button type="button"
+                        className="btn btn-outline-secondary"
+                        onClick ={handleEdit}
+                >
+                    Редактировать</button>
                 <button type="button" className="btn btn-outline-dark border-0" disabled> </button>
-                <button type="button" className="btn btn-outline-secondary">Удалить</button>
+                <button type="button"
+                        className="btn btn-outline-secondary"
+                        onClick ={() => handleDelete()}
+                >
+                    {data.isDeleted ? "Восстановить" : "Удалить"}</button>
             </div>
         </div>
     )
@@ -218,7 +291,7 @@ const ScopesPattern = (props) => {
     );
 }
 
-const UpdatablePost = (props) => {
+const UpdatablePost = () => {
     const data = useContext(PostParams);
 
     const [header, setHeader] = useState(data.header);
@@ -412,12 +485,26 @@ const PostForCreate = () => {
     return (<CreatablePost/>);
 }
 
+const GetSearchPostWithParams = (props) => {
+    return (
+        <SearchPost.Provider value={props}>
+                <Separator.Separator4/>
+                <div className={"jumbotron bg-light"}>
+                    <h4 className={"text-center"}>Search result</h4>
+                    {props.resp.length === 0 ?
+                        <p className={"text-center"}>No content with current search parameters found</p> :
+                        props.resp.map(PostForSearch)}
+                </div>
+        </SearchPost.Provider>);
+}
+
 const PostUtil = {
     PostForPostComments,
     PostForBlog,
     PostForUpdate,
     PostForCreate,
-    PostForSearch
+    PostForSearch,
+    GetSearchPostWithParams
 }
 
 export default PostUtil;

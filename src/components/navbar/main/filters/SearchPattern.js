@@ -101,21 +101,26 @@ const CheckBox3 = (props) => {
                 <input className="form-check-input" type="checkbox"
                        name={`ch3${props.id}`} id="inlineCheckbox1"
                        onChange={props.chinh}
-                       value={props.inh}/>
+                       value={props.inh}
+                       checked={props.inh}/>
                 <label className="form-check-label" htmlFor="inlineCheckbox1">{props.l1}</label>
             </div>
             <div className="form-check form-check-inline">
                 <input className="form-check-input" type="checkbox"
                        name={`ch3${props.id}`} id="inlineCheckbox2"
                        onChange={props.chinmc}
-                       value={props.inmc}/>
+                       value={props.inmc}
+                       checked={props.inmc}
+                />
                 <label className="form-check-label" htmlFor="inlineCheckbox2">{props.l2}</label>
             </div>
             <div className="form-check form-check-inline">
                 <input className="form-check-input" type="checkbox"
                        name={`ch3${props.id}`} id="inlineCheckbox3"
                        onChange={props.chincoment}
-                       value={props.incoms}/>
+                       value={props.incoms}
+                       checked={props.incoms}
+                />
                 <label className="form-check-label" htmlFor="inlineCheckbox3">{props.l3}</label>
             </div>
         </div>

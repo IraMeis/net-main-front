@@ -20,6 +20,10 @@ const deletePost = (id) => {
     return axios.delete(API_URL + `/deletePost/${id}`,{ headers: authHeader() });
 };
 
+const undeletePost = (id) => {
+    return axios.delete(API_URL + `/undeletePost/${id}`,{ headers: authHeader() });
+};
+
 const create = (obj) => {
     return axios.post(API_URL + `/createPost`, obj,{ headers: authHeader() });
 }
@@ -29,6 +33,7 @@ const NoteService = {
     getPostById,
     update,
     deletePost,
+    undeletePost,
     create
 };
 
