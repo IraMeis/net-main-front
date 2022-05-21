@@ -141,7 +141,6 @@ const BarSearch = () =>{
     const [isErr, setIsErr] = useState(false);
     function handleDelete () {
         if (data && data.isDeleted) {
-            updateFunc(onDelChange(updateResp, data.id));
             NoteService.undeletePost(data.id)
                 .then(
                     () => {
@@ -154,12 +153,9 @@ const BarSearch = () =>{
                     });
         }
         else if (data && !data.isDeleted){
-            updateFunc(onDelChange(updateResp, data.id));
             NoteService.deletePost(data.id)
                 .then(
                     () => {
-                        console.log(updateResp);
-                        console.log(updateFunc);
                         updateFunc(onDelChange(updateResp, data.id));
                     })
                 .catch(
