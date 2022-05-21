@@ -1,4 +1,6 @@
 import Separator from "../Separator";
+import {Link} from "react-router-dom";
+import React from "react";
 
 const SimplePostMapper = (props) => {
     return(
@@ -6,8 +8,8 @@ const SimplePostMapper = (props) => {
             <li key={index}>
                 <p/>
                 <div>Id: {pair.value}</div>
-                <div>Header: {pair.label}</div>
-                <div>Link: <a href={"#"}>link</a></div>
+                <div>Header: <Link to={`/note/post/${pair.value}`} className={"link-info"} > {pair.label} </Link>
+                </div>
             </li>
         ));
 }

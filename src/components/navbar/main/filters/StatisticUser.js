@@ -34,8 +34,6 @@ const StatisticUser = () => {
     }
 
     const handleFilter = () => {
-        //console.log(makeSearchRequest())
-        //setIsShow(true);
         StatisticService.getUserStatistic(id)
             .then(
                 (response) => {
