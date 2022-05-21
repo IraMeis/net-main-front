@@ -2,29 +2,29 @@ import axios from "axios";
 import getControllerPath from "../util/GetControllerPath.js";
 import authHeader from "./auth-header";
 
-const API_URL = getControllerPath("test");
+const API_URL = getControllerPath("user");
 
-const getPublicContent = () => {
-  return axios.get(API_URL + "/all");
+const undeleteUser = (id) => {
+  return axios.delete(API_URL + `/undeleteUser/${id}`,{ headers: authHeader() });
 };
 
-const getListBasedOnCurrentScope = () => {
-  return axios.get(API_URL + "/user", { headers: authHeader() });
+const deleteUser = (id) => {
+  return axios.delete(API_URL + `/deleteUser/${id}`, { headers: authHeader() });
 };
 
-// const getModeratorBoard = () => {
-//   return axios.get(API_URL + "/mod", { headers: authHeader() });
-// };
-//
-// const getAdminBoard = () => {
-//   return axios.get(API_URL + "/admin", { headers: authHeader() });
-// };
+const unbanUser = (id) => {
+  return axios.put(API_URL + `/unbanUser/${id}`,{},{ headers: authHeader() });
+};
+
+const banUser = (id) => {
+  return axios.put(API_URL + `/banUser/${id}`, {},{ headers: authHeader() });
+};
 
 const UserService = {
-  getPublicContent,
-  // getUserBoard,
-  // getModeratorBoard,
-  // getAdminBoard,
+  deleteUser,
+  undeleteUser,
+  banUser,
+  unbanUser
 };
 
 export default UserService;

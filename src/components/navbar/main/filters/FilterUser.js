@@ -1,24 +1,17 @@
 import SearchPattern from "./SearchPattern"
-import Separator from "../Separator";
-import SearchUser from "./SearchUser";
 import React, {useState} from "react";
 import StatisticService from "../../../../services/statistic.service";
 import {Navigate} from "react-router-dom";
+import GetSearchUserWithParams from "./SearchUser";
 
 const FilterUser = () => {
 
         const ResponseMapper =() =>{
-                return (
-                    <div>
-                            <Separator.Separator4/>
-                            <div className={"jumbotron bg-light"}>
-                                    <h4 className={"text-center"}>Search result</h4>
-                                    {resp.length === 0 ?
-                                        <p className={"text-center"}>No content with current search parameters found</p> :
-                                        resp.map(SearchUser)}
-                            </div>
-                    </div>
-                );
+                return (<GetSearchUserWithParams resp={resp} f={handleState}/>);
+        }
+
+        function handleState(e){
+                setResp(e);
         }
 
         const [dfrom, setDfrom] = useState();
@@ -123,8 +116,6 @@ const FilterUser = () => {
         }
 
         const handleFilter = () => {
-                //console.log(makeSearchRequest())
-                //setIsShow(true);
                 StatisticService.getFilterUser(makeSearchRequest())
                     .then(
                         (response) => {

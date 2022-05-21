@@ -1,4 +1,9 @@
 import Separator from "../Separator";
+import React, {createContext, useContext, useState} from "react";
+import UserService from "../../../../services/user.service";
+
+const SearchUserParams = createContext(null);
+const CurMasUserParams = createContext(null);
 
 const RoleMapper = (props) => {
   return(
@@ -9,19 +14,110 @@ const RoleMapper = (props) => {
   ));
 }
 
-const BarSearchUser = () =>{
+const BarSearchUser = () => {
+    const data = useContext(CurMasUserParams);
+
+    const updateFunc = useContext(SearchUserParams).f;
+    const updateResp = useContext(SearchUserParams).resp;
+
+    function onDelChange (resp, id) {
+        let copy = resp.slice();
+        for(let i = 0; i < copy.length; i++) {
+            if(resp[i].id===id) {
+                resp[i].isDeleted = !resp[i].isDeleted;
+                break;
+            }
+        }
+        return copy;
+    }
+
+    function onBanChange (resp, id) {
+        let copy = resp.slice();
+        for(let i = 0; i < copy.length; i++) {
+            if(resp[i].id===id) {
+                resp[i].isTokenAllowed = !resp[i].isTokenAllowed;
+                break;
+            }
+        }
+        return copy;
+    }
+
+    const [isErr, setIsErr] = useState(false);
+
+    function handleDelete () {
+        if (data && data.isDeleted) {
+            UserService.undeleteUser(data.id)
+                .then(
+                    () => {
+                        updateFunc(onDelChange(updateResp, data.id));
+                    })
+                .catch(
+                    (error) => {
+                        setIsErr(true);
+                        localStorage.setItem("error", JSON.stringify(error.message));
+                    });
+        }
+        else if (data && !data.isDeleted){
+            UserService.deleteUser(data.id)
+                .then(
+                    () => {
+                        updateFunc(onDelChange(updateResp, data.id));
+                    })
+                .catch(
+                    (error) => {
+                        setIsErr(true);
+                        localStorage.setItem("error", JSON.stringify(error.message));
+                    });
+        }
+    };
+
+    function handleBan () {
+        if (data && !data.isTokenAllowed) {
+            UserService.unbanUser(data.id)
+                .then(
+                    () => {
+                        updateFunc(onBanChange(updateResp, data.id));
+                    })
+                .catch(
+                    (error) => {
+                        setIsErr(true);
+                        localStorage.setItem("error", JSON.stringify(error.message));
+                    });
+        }
+        else if (data && data.isTokenAllowed) {
+            UserService.banUser(data.id)
+                .then(
+                    () => {
+                        updateFunc(onBanChange(updateResp, data.id));
+                    })
+                .catch(
+                    (error) => {
+                        setIsErr(true);
+                        localStorage.setItem("error", JSON.stringify(error.message));
+                    });
+        }
+    };
+
     return (
         <div className={"float-right"}>
-            <button type="button" className="btn btn-outline-secondary">В бан</button>
+            <button type="button"
+                    className="btn btn-outline-secondary"
+                    onClick ={() => handleBan()}
+            >
+                {!data.isTokenAllowed ? "Разбанить" : "В бан"}</button>
             <button type="button" className="btn btn-outline-dark border-0" disabled> </button>
-            <button type="button" className="btn btn-outline-secondary">Удалить</button>
+            <button type="button"
+                    className="btn btn-outline-secondary"
+                    onClick ={() => handleDelete()}
+            >
+                {data.isDeleted ? "Восстановить" : "Удалить"}</button>
         </div>
     )
 }
 
 const SearchUser = (props) => {
     return (
-        <div>
+        <CurMasUserParams.Provider value={props}>
             <Separator.Separator4/>
             <Separator.Separator2/>
 
@@ -52,8 +148,22 @@ const SearchUser = (props) => {
 
             <hr/>
             <BarSearchUser/>
-        </div>
+        </CurMasUserParams.Provider>
     );
 }
 
-export default SearchUser;
+const GetSearchUserWithParams = (props) => {
+    return (
+        <SearchUserParams.Provider value={props}>
+            <Separator.Separator4/>
+            <div className={"jumbotron bg-light"}>
+                <h4 className={"text-center"}>Search result</h4>
+                {props.resp.length === 0 ?
+                    <p className={"text-center"}>No content with current search parameters found</p> :
+                    props.resp.map(SearchUser)}
+            </div>
+        </SearchUserParams.Provider>
+    );
+}
+
+export default GetSearchUserWithParams;
